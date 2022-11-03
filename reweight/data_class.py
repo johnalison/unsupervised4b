@@ -70,7 +70,7 @@ class file:
         if getback: return temp; 
         print(len(self.m4j), '->',  len(np.array(self.m4j)[temp]), "for sel = ~(SR&fourTag)")
 
-    def selNonZeroWeight(self, getback = False):
+    def selNonZeroTrigWeight(self, getback = False):
         temp = np.array(self.trigWeight_Data) != 0
         print(len(self.m4j), '->',  len(np.array(self.m4j)[temp]), "for sel = trigWeight_Data != 0")
         if getback: return temp; 
@@ -90,7 +90,7 @@ class file:
 
     def selTTAll(self, getback=False):
         temp = np.logical_and(self.selSBorSR(True), self.HLT)
-        temp2 = np.logical_and(temp, self.selNonZeroWeight(True))
+        temp2 = np.logical_and(temp, self.selNonZeroTrigWeight(True))
         if getback:
             return len(np.array(self.m4j)[temp2]), sum(np.array(self.weights)[temp2])
         print(len(self.m4j), '->',  len(np.array(self.m4j)[temp]), "for sel = (SB|SR) & HLT")
