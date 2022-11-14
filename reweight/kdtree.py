@@ -1,6 +1,8 @@
 import numpy as np
-import time
-import matplotlib.pyplot as plt
+# import time
+# import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 from sklearn.neighbors import KDTree
 
 def get_ranges(data, parts = 6):
