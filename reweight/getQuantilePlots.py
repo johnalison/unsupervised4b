@@ -22,10 +22,14 @@ def getMCPTweight(ttData, vn=0):
     mcPsedoTagWeight = "mcPseudoTagWeight_3bDvTMix4bDvT_v" + str(vn)
     return np.array(ttData[mcPsedoTagWeight])
 
-def getDataForQuantPlot(filename, dataFilename, w3to4Filename, ttFilename = None, vn = 0):
+def getDataForQuantPlot(filename, dataFilename, w3to4Filename, ttFilename = None, vn = 0, mcpt = False, wDtoMFilename = None):
     data3b = getUprootBranch(filename, vn = vn)     # get relevant branches
     bgW = get3to4Reweight(w3to4Filename)    # don't make it generic 3to4. make space for DtoM as well
     bgW[np.where(np.isnan(bgW)==True)] = 0
+    if mcpt:
+        bgW = getMCPTweight(data3b, vn = vn)
+    if wDtoMFilename is not None:
+        bgW = getDtoMReweight(wDtoMFilename)
     dataMixed = getUprootBranch(dataFilename, vn = vn) # get relevant branches
     dataW = getMCPTweight(dataMixed, vn = vn)
     if ttFilename is not None:
@@ -48,6 +52,7 @@ def getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = None, vn 
     dataMixed = getUprootBranch(dataFilename, vn = vn)  # get relevant branches
     dataW = getMCPTweight(dataMixed, vn = vn)
 
+    dataTT, ttW = None, None
     if ttFilename is not None:
         dataTT = getUprootBranch(ttFilename[0], vn = vn)
         ttW = getMCPTweight(dataTT, vn=vn)
@@ -68,7 +73,7 @@ def m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT=None, ttW=None, f
     
     bins = np.arange(0,1200,25)
     bincount, binbound = np.histogram(m4j, bins=bins, weights=wData)
-    bincenter = [(binbound[i]+binbound[i+1])/2 for i in range(len(binbound)-1)]
+    bincenter = 0.5*(binbound[:-1] + binbound[1:])
     
     plt.rcParams.update({'font.size': 22})
     figf, axs = plt.subplots(2, 1, sharex = True, figsize=(12.5,10), gridspec_kw={'height_ratios': [0.8,0.2]})
@@ -77,12 +82,14 @@ def m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT=None, ttW=None, f
         TTm4jPass = getQuantile.dataSel(dataTT, reweightSel)
         m4jTT = dataTT['m4j'][TTm4jPass]; wTT = ttW[TTm4jPass]
         m4jHist = axs[0].hist([m4jTT,m4j3b], bins=bins,weights=[wTT, w3b], label=['$\mathrm{t\overline{t}}$', 'Multijet Model'], color=['tab:blue', 'gold'], stacked=True, fill=True, alpha = 0.9, histtype='step', edgecolor='k')
-        bkgd = np.sum(m4jHist[0], axis=0)
+        bkgd = m4jHist[0][1]
     else:
         m4jHist = axs[0].hist(m4j3b, bins=bins,weights=w3b, label='Multijet Model', color='gold', stacked=True, fill=True, alpha = 0.9, histtype='step', edgecolor='k')
         bkgd = m4jHist[0]
     
-    axs[0].errorbar(bincenter, bincount, yerr=np.sqrt(bkgd), marker='o', color='k', label='Data', ls='none')
+    
+    axs[0].errorbar(bincenter, bincount, yerr=np.sqrt(bincount), marker='o', color='k', label='Data', ls='none')
+    axs[0].errorbar(bincenter, bkgd, yerr = np.sqrt(bkgd), ls='none', color='k')
     # plt.title('Events (rewighted: '+ str(m4jBinEdges[1][0])+'-'+str(m4jBinEdges[-2][1])+' GeV)')
     plt.xlabel("m4j (GeV)")#, fontsize=15)
     axs[0].set_ylabel("Events")#, fontsize=15)

@@ -17,35 +17,55 @@ ttFilename = ["root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/"
 
 ####################################################
 
-### Selections for unweighted without 4b-ttbar 
-data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = ttFilename, vn = vn, mcpt=True)
-m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT=None, ttW=None, figName = "m4jUnweighted.png", plotAll=True)
+# ### Selections for unweighted without 4b-ttbar 
+# data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = None, vn = vn, mcpt=True)
+# m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT, ttW, figName = "m4jUnweighted.png", plotAll=True)
 
-### Selections for m4j3to4_sansDtoM without 4b-ttbar 
-w3to4Filename = "picoAOD_3b_wJCM_v0_newSBDef_2017_w3to4sansDtoM.root"
-data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = ttFilename, vn = vn)
-m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT=None, ttW=None, figName = "m4j3to4_sansDtoM.png")
+# ### Selections for m4j3to4_sansDtoM without 4b-ttbar 
+# w3to4Filename = "picoAOD_3b_wJCM_v0_newSBDef_2017_w3to4sansDtoM.root"
+# data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = None, vn = vn)
+# m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT, ttW, figName = "m4j3to4_sansDtoM.png")
 
-### Selections for m4jDtoM_sans3to4 with 4b-ttbar 
-wDtoMFilename = "multijet/picoAOD_3b_wJCM_v0_newSBDef_2017_multijet.root"
-data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = ttFilename, vn = vn, wDtoMFilename=wDtoMFilename)
-m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT, ttW, figName = "m4jDtoM_sans3to4.png", plotAll=True)
+# ### Selections for m4jDtoM_sans3to4 with 4b-ttbar 
+# wDtoMFilename = "multijet/picoAOD_3b_wJCM_v0_newSBDef_2017_multijet.root"
+# data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = ttFilename, vn = vn, wDtoMFilename=wDtoMFilename)
+# m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT, ttW, figName = "m4jDtoM_sans3to4.png", plotAll=True)
 
-### Selections for m4jDtoM3to4 with 4b-ttbar 
-w3to4Filename = "w3to4/picoAOD_3b_wJCM_v0_newSBDef_2017_w3to4.root"
-data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = ttFilename, vn = vn)
-m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT, ttW, figName = "m4jDtoM3to4.png")
+# ### Selections for m4jDtoM3to4 with 4b-ttbar 
+# w3to4Filename = "w3to4/picoAOD_3b_wJCM_v0_newSBDef_2017_w3to4.root"
+# data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = ttFilename, vn = vn)
+# m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT, ttW, figName = "m4jDtoM3to4.png")
 
-exit()
+# exit()
 
 ####################################################
 
-### Selection for making dijet quantile plots
+# ### Selections for unweighted without 4b-ttbar 
+# data3b, bgW, dataMixed, dataW = getDataForQuantPlot(filename, dataFilename, w3to4Filename, ttFilename = None, vn = 0, mcpt = True)
+# print(len(data3b['m4j']), len(bgW), len(dataMixed['m4j']), len(dataW))
+# pdfFilename = "dijetPullsUnweighted.pdf"
+
+# ### Selections for m4j3to4_sansDtoM without 4b-ttbar 
+# w3to4Filename = "picoAOD_3b_wJCM_v0_newSBDef_2017_w3to4sansDtoM.root"
+# data3b, bgW, dataMixed, dataW = getDataForQuantPlot(filename, dataFilename, w3to4Filename, ttFilename = None, vn = 0)
+# print(len(data3b['m4j']), len(bgW), len(dataMixed['m4j']), len(dataW))
+# pdfFilename = "dijetPulls3to4_sansDtoM.pdf"
+
+# ### Selections for m4jDtoM_sans3to4 with 4b-ttbar 
+# wDtoMFilename = "multijet/picoAOD_3b_wJCM_v0_newSBDef_2017_multijet.root"
+# data3b, bgW, dataMixed, dataW = getDataForQuantPlot(filename, dataFilename, w3to4Filename, ttFilename, vn = 0, wDtoMFilename=wDtoMFilename)
+# print(len(data3b['m4j']), len(bgW), len(dataMixed['m4j']), len(dataW))
+# pdfFilename = "dijetPullsDtoM_sans3to4.pdf"
+
+### Selection for making dijet quantile plots for m4jDtoM3to4 with 4b-ttbar 
+w3to4Filename = "w3to4/picoAOD_3b_wJCM_v0_newSBDef_2017_w3to4.root"
 data3b, bgW, dataMixed, dataW = getDataForQuantPlot(filename, dataFilename, w3to4Filename, ttFilename, vn = 0)
 print(len(data3b['m4j']), len(bgW), len(dataMixed['m4j']), len(dataW))
-exit()
+pdfFilename = "dijetPullsDtoM3to4.pdf"
 
-pp = PdfPages('foot.pdf')
+pp = PdfPages(pdfFilename)
+
+# pp = PdfPages('foo.pdf')
 # for binNo, m4jBinEdge in enumerate(m4jBinEdges[1:2]):
 for binNo, m4jBinEdge in enumerate(m4jBinEdges):
     if binNo == 0 or binNo == len(m4jBinEdges)-1:
@@ -66,7 +86,7 @@ for binNo, m4jBinEdge in enumerate(m4jBinEdges):
     figf = qData.getHistPlots()
     
     pp.savefig(figf); 
-    plt.show();
+    # plt.show();
     plt.close()
 
 pp.close()
