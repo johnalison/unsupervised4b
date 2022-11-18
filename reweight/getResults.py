@@ -1,36 +1,49 @@
 import numpy as np; import uproot
 from getQuantilePlots import getQuantile
-from getQuantilePlots import getDataForPlot, m4jPlot
+from getQuantilePlots import getDataForQuantPlot, getDataForPlot, m4jPlot
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
-m4jBinEdges = np.loadtxt("../m4jBinEdges.txt")
-
-# filename = "root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/mixed2017_3bDvTMix4bDvT_v0/picoAOD_3bDvTMix4bDvT_4b_wJCM_v0_newSBDef.root"
-# dataFilename = "root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/mixed2017_3bDvTMix4bDvT_v0/picoAOD_3bDvTMix4bDvT_4b_wJCM_v0_newSBDef.root"
-# w3to4Filename = "w3to4_4b/picoAOD_3bDvTMix4bDvT_4b_wJCM_v0_newSBDef_2017_w3to4_4b.root"
+m4jBinEdges = np.asarray(np.loadtxt("../m4jBinEdges.txt"))
 
 filename = "root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/data2017_3b/picoAOD_3b_wJCM_newSBDef.root"
 dataFilename = "root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/mixed2017_3bDvTMix4bDvT_v0/picoAOD_3bDvTMix4bDvT_4b_wJCM_v0_newSBDef.root"
 w3to4Filename = "w3to4/picoAOD_3b_wJCM_v0_newSBDef_2017_w3to4.root"
-
 
 processArr = ['TTTo2L2Nu', 'TTToHadronic', 'TTToSemiLeptonic']
 #change year
 vn = 0
 ttFilename = ["root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/"+p+"2017_4b_noPSData_wTrigW/picoAOD_4b_wJCM_newSBDef.root" for p in processArr]
 
-
 ####################################################
 
-data3b, bgW, dataMixed = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = None, vn = 0)
-print(len(data3b['m4j']), len(bgW))
-print("Data obtained")
+### Selections for unweighted without 4b-ttbar 
+data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = ttFilename, vn = vn, mcpt=True)
+m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT=None, ttW=None, figName = "m4jUnweighted.png", plotAll=True)
 
-m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, figName = "m4j3to4DtoM.png")
+### Selections for m4j3to4_sansDtoM without 4b-ttbar 
+w3to4Filename = "picoAOD_3b_wJCM_v0_newSBDef_2017_w3to4sansDtoM.root"
+data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = ttFilename, vn = vn)
+m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT=None, ttW=None, figName = "m4j3to4_sansDtoM.png")
+
+### Selections for m4jDtoM_sans3to4 with 4b-ttbar 
+wDtoMFilename = "multijet/picoAOD_3b_wJCM_v0_newSBDef_2017_multijet.root"
+data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = ttFilename, vn = vn, wDtoMFilename=wDtoMFilename)
+m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT, ttW, figName = "m4jDtoM_sans3to4.png", plotAll=True)
+
+### Selections for m4jDtoM3to4 with 4b-ttbar 
+w3to4Filename = "w3to4/picoAOD_3b_wJCM_v0_newSBDef_2017_w3to4.root"
+data3b, bgW, dataMixed, dataW, dataTT, ttW = getDataForPlot(filename, dataFilename, w3to4Filename, ttFilename = ttFilename, vn = vn)
+m4jPlot(m4jBinEdges, data3b, bgW, dataMixed, dataW, dataTT, ttW, figName = "m4jDtoM3to4.png")
+
 exit()
 
 ####################################################
+
+### Selection for making dijet quantile plots
+data3b, bgW, dataMixed, dataW = getDataForQuantPlot(filename, dataFilename, w3to4Filename, ttFilename, vn = 0)
+print(len(data3b['m4j']), len(bgW), len(dataMixed['m4j']), len(dataW))
+exit()
 
 pp = PdfPages('foot.pdf')
 # for binNo, m4jBinEdge in enumerate(m4jBinEdges[1:2]):
@@ -61,5 +74,9 @@ pp.close()
 print("Done!")
 
 
+
+# filename = "root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/mixed2017_3bDvTMix4bDvT_v0/picoAOD_3bDvTMix4bDvT_4b_wJCM_v0_newSBDef.root"
+# dataFilename = "root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/mixed2017_3bDvTMix4bDvT_v0/picoAOD_3bDvTMix4bDvT_4b_wJCM_v0_newSBDef.root"
+# w3to4Filename = "w3to4_4b/picoAOD_3bDvTMix4bDvT_4b_wJCM_v0_newSBDef_2017_w3to4_4b.root"
 
  
