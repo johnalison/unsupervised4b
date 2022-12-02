@@ -1,0 +1,11 @@
+universe = vanilla
+use_x509userproxy = true
+Executable = condor.sh
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+Output = example.stdout
+Error = example.stderr
+Log = example.log
+Arguments = CMSSW_11_1_0_pre5 root://cmseos.fnal.gov//store/user/jda102/condor/test/ root://cmseos.fnal.gov//store/user/jda102/condor/CMSSW_11_1_0_pre5.tgz python3 unsupervised4b/reweight/calculateDtoMWeights.py
++DesiredOS="SL7"
+Queue 1

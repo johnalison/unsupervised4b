@@ -8,7 +8,7 @@ parser.add_argument('-d', '--data', default="root://cmsxrootd.fnal.gov//store/us
 parser.add_argument('-t', '--ttbar', default="root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/TTTo2L2Nu2017_4b_noPSData_wTrigW/picoAOD_4b_wJCM_newSBDef.root")
 parser.add_argument('-pY', '--processYr', default="TTTo2L2Nu2017")
 parser.add_argument('-v', '--version', default="0")
-parser.add_argument('-bf', '--binEdgeFile', default="../m4jBinEdges.txt")
+parser.add_argument('-bf', '--binEdgeFile', default="unsupervised4b/m4jBinEdges.txt")
 parser.add_argument('-bin', '--bin', default=1)
 
 parser.add_argument('-o', '--outputfile', default="picoAOD_3bDvTMix4bDvT_4b_wJCM_v0_newSBDef_wDtoM.root")
