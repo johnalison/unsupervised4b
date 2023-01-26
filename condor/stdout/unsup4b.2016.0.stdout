@@ -1,0 +1,87 @@
+[FERMIHTC-SINGULARITY]: INFO -- No Singulariy image specified
+[FERMIHTC-SINGULARITY]: INFO -- Running job on the host machine
+
+[FERMIHTC-SINGULARITY]: INFO -- Running ./condor_exec.exe CMSSW_11_1_0_pre5 root://cmseos.fnal.gov//store/user/smurthy/condor/unsupervised4b/wkdt/ root://cmseos.fnal.gov//store/user/smurthy/condor/CMSSW_11_1_0_pre5.tgz python3 unsupervised4b/reweight/calculateDtoMWeights.py -s 1 -m 0 -dYr 2016
+Starting job on  Fri Jan 20 03:16:10 UTC 2023
+Running on: Linux smurthy-31070980-0-cmswn1976.fnal.gov 3.10.0-1160.80.1.el7.x86_64 #1 SMP Wed Nov 2 16:40:42 CDT 2022 x86_64 x86_64 x86_64 GNU/Linux
+System software: Scientific Linux release 7.9 (Nitrogen)
+xrdcp -s root://cmseos.fnal.gov//store/user/smurthy/condor/CMSSW_11_1_0_pre5.tgz .
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+tar -xf CMSSW_11_1_0_pre5.tgz
+cd CMSSW_11_1_0_pre5/src/
+Reading cached build data
+Done: ProjectRename
+/storage/local/data1/condor/execute/dir_14481/CMSSW_11_1_0_pre5 is the CMSSW we have on the local worker node
+/storage/local/data1/condor/execute/dir_14481/CMSSW_11_1_0_pre5/src
+python3 unsupervised4b/reweight/calculateDtoMWeights.py -s 1 -m 0 -dYr 2016
+[[  98.  353.]
+ [ 353.  406.]
+ [ 406.  444.]
+ [ 444.  480.]
+ [ 480.  516.]
+ [ 516.  558.]
+ [ 558.  608.]
+ [ 608.  679.]
+ [ 679.  796.]
+ [ 796. 1199.]]
+['mcPseudoTagWeight_3bDvTMix4bDvT_v0', 'passHLT', 'leadStM', 'sublStM', 'm4j']
+Branches extracted
+Bin selections obtained for bin 0
+Bin selections obtained for bin 1
+Bin selections obtained for bin 2
+Bin selections obtained for bin 3
+Bin selections obtained for bin 4
+Bin selections obtained for bin 5
+Bin selections obtained for bin 6
+Bin selections obtained for bin 7
+Bin selections obtained for bin 8
+Bin selections obtained for bin 9
+DtoM reweighting complete
+name                 | typename                 | interpretation                
+---------------------+--------------------------+-------------------------------
+wkdt                 | double                   | AsDtype('>f8')
+picoAOD_3b_wJCM_newSBDef_2016_wkdt.root outputfile saved
+
+
+/storage/local/data1/condor/execute/dir_14481/CMSSW_11_1_0_pre5/src
+List all root files:
+picoAOD_3b_wJCM_newSBDef_2016_wkdt.root
+List all files:
+total 13M
+drwxr-xr-x 23 smurthy fnalgrid 4.0K Jan 20 03:38 .
+drwxr-xr-x 19 smurthy fnalgrid 4.0K Nov 18  2020 ..
+-rw-r--r--  1 smurthy fnalgrid  486 Nov 13  2020 .clang-format
+-rw-r--r--  1 smurthy fnalgrid 1.5K Nov 13  2020 .clang-tidy
+drwxr-xr-x  2 smurthy fnalgrid 4.0K Oct 28  2021 3b
+-rw-r--r--  1 smurthy fnalgrid 9.7K Dec  3  2021 CondorScript.py
+drwxr-xr-x  4 smurthy fnalgrid 4.0K Nov 13  2020 FWCore
+drwxr-xr-x  4 smurthy fnalgrid 4.0K Nov 18  2020 PhysicsTools
+drwxr-xr-x  4 smurthy fnalgrid 4.0K Feb 18  2022 ROOTHelp
+drwxr-xr-x  4 smurthy fnalgrid 4.0K Mar 13  2021 TestZH4b2018
+drwxr-xr-x  3 smurthy fnalgrid 4.0K Nov 18  2020 TriggerEmulator
+drwxr-xr-x  7 smurthy fnalgrid 4.0K Oct 19  2021 ZZ4b
+drwxr-xr-x  5 smurthy fnalgrid 4.0K Oct  2 02:30 closureTests
+drwxr-xr-x  2 smurthy fnalgrid 4.0K Nov  4  2021 data2016_3b_wJCM
+drwxr-xr-x  2 smurthy fnalgrid 4.0K Feb 15  2022 data2017_3b_wJCM
+drwxr-xr-x  3 smurthy fnalgrid 4.0K Mar 21  2022 data2018_3bMix4b_rWbW2_b0p60p3_v0_wFvT
+drwxr-xr-x  2 smurthy fnalgrid 4.0K Feb 15  2022 data2018_3b_wJCM
+drwxr-xr-x  2 smurthy fnalgrid 4.0K Mar 21  2022 dataMixed_oneFile
+-rw-r--r--  1 smurthy fnalgrid    0 Nov 18  2021 docker_stderror
+drwxr-xr-x  8 smurthy fnalgrid 4.0K Oct  2 03:52 local-unsupervised
+drwxr-xr-x  2 smurthy fnalgrid 4.0K Oct  2 02:38 mixed2016_3bDvTMix4bDvT_wJCM_v0
+drwxr-xr-x  5 smurthy fnalgrid 4.0K Nov 17  2020 nTupleAnalysis
+drwxr-xr-x  3 smurthy fnalgrid 4.0K Nov 17  2020 nTupleHelperTools
+-rw-r--r--  1 smurthy fnalgrid   11 Jun 18  2021 one_percent_pull.txt
+-rw-r--r--  1 smurthy fnalgrid   18 Jun 18  2021 one_percent_ratio.txt
+-rw-r--r--  1 smurthy fnalgrid  12M Jan 20 03:38 picoAOD_3b_wJCM_newSBDef_2016_wkdt.root
+drwxr-xr-x  2 smurthy fnalgrid 4.0K Feb 18  2022 plots
+drwxr-xr-x  3 smurthy fnalgrid 4.0K Jan 31  2022 root_examples
+-rw-r--r--  1 smurthy fnalgrid   11 Jun 18  2021 ten_percent_pull.txt
+-rw-r--r--  1 smurthy fnalgrid   18 Jun 18  2021 ten_percent_ratio.txt
+drwxr-xr-x  2 smurthy fnalgrid 4.0K Jan 19  2022 test_code
+drwxr-xr-x  3 smurthy fnalgrid 4.0K Jan 20 03:15 unsupervised4b
+*******************************************
+xrdcp ROOT output for condor to:
+root://cmseos.fnal.gov//store/user/smurthy/condor/unsupervised4b/wkdt/
+xrdcp -f picoAOD_3b_wJCM_newSBDef_2016_wkdt.root root://cmseos.fnal.gov//store/user/smurthy/condor/unsupervised4b/wkdt//picoAOD_3b_wJCM_newSBDef_2016_wkdt.root
+[8MB/11.99MB][ 66%][=================================>                ][8MB/s]  [11.99MB/11.99MB][100%][==================================================][11.99MB/s]  [11.99MB/11.99MB][100%][==================================================][11.99MB/s]  

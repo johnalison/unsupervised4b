@@ -1,0 +1,20 @@
+[FERMIHTC-SINGULARITY]: INFO -- No Singulariy image specified
+[FERMIHTC-SINGULARITY]: INFO -- Running job on the host machine
+
+[FERMIHTC-SINGULARITY]: INFO -- Running ./condor_exec.exe CMSSW_11_1_0_pre5 root://cmseos.fnal.gov//store/user/smurthy/condor/unsupervised4b/ root://cmseos.fnal.gov//store/user/smurthy/condor/CMSSW_11_1_0_pre5.tgz python3 unsupervised4b/reweight/testClosure.py
+Starting job on  Mon Jan 23 05:06:07 UTC 2023
+Running on: Linux smurthy-31079676-0-cmswn1964.fnal.gov 3.10.0-1160.80.1.el7.x86_64 #1 SMP Wed Nov 2 16:40:42 CDT 2022 x86_64 x86_64 x86_64 GNU/Linux
+System software: Scientific Linux release 7.9 (Nitrogen)
+xrdcp -s root://cmseos.fnal.gov//store/user/smurthy/condor/CMSSW_11_1_0_pre5.tgz .
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+tar -xf CMSSW_11_1_0_pre5.tgz
+cd CMSSW_11_1_0_pre5/src/
+Reading cached build data
+Done: ProjectRename
+/storage/local/data1/condor/execute/dir_42798/CMSSW_11_1_0_pre5 is the CMSSW we have on the local worker node
+/storage/local/data1/condor/execute/dir_42798/CMSSW_11_1_0_pre5/src
+python3 unsupervised4b/reweight/testClosure.py
+Plotting closure
+['root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/data2016_3b/picoAOD_3b_wJCM_newSBDef.root', 'root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/data2017_3b/picoAOD_3b_wJCM_newSBDef.root', 'root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/data2018_3b/picoAOD_3b_wJCM_newSBDef.root']
+
+command exit code 1

@@ -1,0 +1,20 @@
+universe = vanilla
+use_x509userproxy = true
+Executable = condor.sh
+notify_user = sindhum@andrew.cmu.edu
+notification = always
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+Output = stdout/unsup4b.$(dYr).$(mi).stdout
+Error = stderr/unsup4b.$(dYr).$(mi).stderr
+Log = log/unsup4b.$(dYr).$(mi).log
+Arguments = CMSSW_11_1_0_pre5 root://cmseos.fnal.gov//store/user/smurthy/condor/unsupervised4b/wkdt/ root://cmseos.fnal.gov//store/user/smurthy/condor/CMSSW_11_1_0_pre5.tgz python3 unsupervised4b/reweight/calculateDtoMWeights.py -s 1 -m $(mi) -dYr $(dYr)
++DesiredOS="SL7"
+queue dYr, mi from (
+    2016, 0
+    2017, 0
+    2018, 0
+    2016, 1
+    2017, 1
+    2018, 1
+)

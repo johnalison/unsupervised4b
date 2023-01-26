@@ -1,0 +1,80 @@
+000 (77354469.003.000) 2023-01-19 21:01:01 Job submitted from host: <131.225.188.235:9618?addrs=131.225.188.235-9618+[2620-6a-0-8421-f0-0-188-235]-9618&alias=lpcschedd3.fnal.gov&noUDP&sock=schedd_19627_1166>
+...
+040 (77354469.003.000) 2023-01-19 21:01:21 Started transferring input files
+	Transferring to host: <131.225.188.34:9618?addrs=[2620-6a-0-8421-f0-0-188-34]-9618+131.225.188.34-9618&alias=cmswn2026.fnal.gov&noUDP&sock=slot1_55_1995_686a_24990>
+...
+040 (77354469.003.000) 2023-01-19 21:01:21 Finished transferring input files
+...
+001 (77354469.003.000) 2023-01-19 21:01:22 Job executing on host: <131.225.188.34:9618?addrs=[2620-6a-0-8421-f0-0-188-34]-9618+131.225.188.34-9618&alias=cmswn2026.fnal.gov&noUDP&sock=startd_1912_0d2b>
+...
+006 (77354469.003.000) 2023-01-19 21:01:31 Image size of job updated: 3
+	3  -  MemoryUsage of job (MB)
+	3856  -  ResidentSetSize of job (KB)
+...
+006 (77354469.003.000) 2023-01-19 21:02:32 Image size of job updated: 74
+	74  -  MemoryUsage of job (MB)
+	76004  -  ResidentSetSize of job (KB)
+...
+006 (77354469.003.000) 2023-01-19 21:03:08 Image size of job updated: 92
+	92  -  MemoryUsage of job (MB)
+	94380  -  ResidentSetSize of job (KB)
+...
+040 (77354469.003.000) 2023-01-19 21:03:08 Started transferring output files
+...
+040 (77354469.003.000) 2023-01-19 21:03:08 Finished transferring output files
+...
+005 (77354469.003.000) 2023-01-19 21:03:10 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:15, Sys 0 00:00:06  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:15, Sys 0 00:00:06  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	4823  -  Run Bytes Sent By Job
+	12178  -  Run Bytes Received By Job
+	4823  -  Total Bytes Sent By Job
+	12178  -  Total Bytes Received By Job
+	Partitionable Resources :     Usage  Request Allocated 
+	   Cpus                 :      0.00        1         1 
+	   Disk (KB)            : 531009           2   1627446 
+	   Memory (MB)          :     92        2048      2048 
+
+	Job terminated of its own accord at 2023-01-20T03:03:08Z.
+...
+000 (31070980.003.000) 2023-01-19 21:15:44 Job submitted from host: <131.225.204.62:9618?addrs=131.225.204.62-9618+[2620-6a-0-8420-f0-0-204-62]-9618&alias=lpcschedd5.fnal.gov&noUDP&sock=schedd_15522_6121>
+...
+040 (31070980.003.000) 2023-01-19 21:16:07 Started transferring input files
+	Transferring to host: <131.225.188.54:9618?addrs=[2620-6a-0-8421-f0-0-188-54]-9618+131.225.188.54-9618&alias=cmswn2034.fnal.gov&noUDP&sock=slot1_56_2106_9e0f_25727>
+...
+040 (31070980.003.000) 2023-01-19 21:16:07 Finished transferring input files
+...
+001 (31070980.003.000) 2023-01-19 21:16:08 Job executing on host: <131.225.188.54:9618?addrs=[2620-6a-0-8421-f0-0-188-54]-9618+131.225.188.54-9618&alias=cmswn2034.fnal.gov&noUDP&sock=startd_2013_543c>
+...
+006 (31070980.003.000) 2023-01-19 21:16:17 Image size of job updated: 3
+	3  -  MemoryUsage of job (MB)
+	3856  -  ResidentSetSize of job (KB)
+...
+006 (31070980.003.000) 2023-01-19 21:17:18 Image size of job updated: 93
+	93  -  MemoryUsage of job (MB)
+	95404  -  ResidentSetSize of job (KB)
+...
+040 (31070980.003.000) 2023-01-19 21:17:18 Started transferring output files
+...
+040 (31070980.003.000) 2023-01-19 21:17:18 Finished transferring output files
+...
+005 (31070980.003.000) 2023-01-19 21:17:20 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	4848  -  Run Bytes Sent By Job
+	12178  -  Run Bytes Received By Job
+	4848  -  Total Bytes Sent By Job
+	12178  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        1         1 
+	   Disk (KB)            :   531009        2   1631713 
+	   Memory (MB)          :       93     2048      2048 
+
+	Job terminated of its own accord at 2023-01-20T03:17:18Z.
+...

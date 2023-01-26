@@ -1,0 +1,13 @@
+universe = vanilla
+use_x509userproxy = true
+Executable = condor.sh
+notify_user = sindhum@andrew.cmu.edu
+notification = always
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+Output = stdout/unsup4b.stdout
+Error = stderr/unsup4b.stderr
+Log = log/unsup4b.log
+Arguments = CMSSW_11_1_0_pre5 root://cmseos.fnal.gov//store/user/smurthy/condor/unsupervised4b/ root://cmseos.fnal.gov//store/user/smurthy/condor/CMSSW_11_1_0_pre5.tgz python3 unsupervised4b/reweight/testClosure.py
++DesiredOS="SL7"
+queue 1

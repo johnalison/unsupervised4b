@@ -1,0 +1,46 @@
+Matplotlib created a temporary config/cache directory at /storage/local/data1/condor/execute/dir_42798/matplotlib-mqyur05_ because the default path (/home/smurthy/.config/matplotlib) is not a writable directory; it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+Traceback (most recent call last):
+  File "/storage/local/data1/condor/execute/dir_42798/CMSSW_11_1_0_pre5/src/unsupervised4b/reweight/testClosure.py", line 24, in <module>
+    data, dataTT, dataDtoM = getDataForClosure(filename, wDtoMFilename, ttFilename, vn = vn, vars=closureBranch)
+  File "/storage/local/data1/condor/execute/dir_42798/CMSSW_11_1_0_pre5/src/unsupervised4b/reweight/getQuantilePlots.py", line 56, in getDataForClosure
+    data = getUprootBranch(filename, vn = vn, closure=vars)     # get relevant branches
+  File "/storage/local/data1/condor/execute/dir_42798/CMSSW_11_1_0_pre5/src/unsupervised4b/reweight/getQuantilePlots.py", line 16, in getUprootBranch
+    data = uproot.concatenate(filename, filter_name=arrayNames)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/behaviors/TBranch.py", line 358, in concatenate
+    arrays = hasbranches.arrays(
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/behaviors/TBranch.py", line 1125, in arrays
+    _ranges_or_baskets_to_arrays(
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/behaviors/TBranch.py", line 3502, in _ranges_or_baskets_to_arrays
+    uproot.source.futures.delayed_raise(*obj)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/futures.py", line 36, in delayed_raise
+    raise exception_value.with_traceback(traceback)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/behaviors/TBranch.py", line 3423, in chunk_to_basket
+    basket = uproot.models.TBasket.Model_TBasket.read(
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/model.py", line 805, in read
+    self.read_members(chunk, cursor, context, file)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/models/TBasket.py", line 223, in read_members
+    ) = cursor.fields(chunk, _tbasket_format1, context)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/cursor.py", line 197, in fields
+    return format.unpack(chunk.get(start, stop, self, context))
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/chunk.py", line 419, in get
+    self.wait(insist=stop)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/chunk.py", line 356, in wait
+    self._raw_data = numpy.frombuffer(self._future.result(), dtype=self._dtype)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/futures.py", line 116, in result
+    delayed_raise(*self._excinfo)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/futures.py", line 36, in delayed_raise
+    raise exception_value.with_traceback(traceback)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/futures.py", line 278, in _run
+    self._result = self._task(resource)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/xrootd.py", line 218, in task
+    return partfutures[0].result()
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/futures.py", line 116, in result
+    delayed_raise(*self._excinfo)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/futures.py", line 36, in delayed_raise
+    raise exception_value.with_traceback(traceback)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/xrootd.py", line 236, in callback
+    self._xrd_error(status)
+  File "/cvmfs/sft.cern.ch/lcg/views/LCG_102rc1/x86_64-centos7-gcc11-opt/lib/python3.9/site-packages/uproot/source/xrootd.py", line 118, in _xrd_error
+    raise OSError(
+OSError: XRootD error: [ERROR] Operation expired
+in file root://cmsxrootd.fnal.gov//store/user/jda102/condor/ZH4b/ULTrig/data2016_3b/picoAOD_3b_wJCM_newSBDef.root

@@ -1,0 +1,40 @@
+universe = vanilla
+use_x509userproxy = true
+Executable = condor.sh
+notify_user = sindhum@andrew.cmu.edu
+notification = always
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+Output = stdout/unsup4b.$(dYr).stdout
+Error = stderr/unsup4b.$(dYr).stderr
+Log = log/unsup4b.$(dYr).log
+Arguments = CMSSW_11_1_0_pre5 root://cmseos.fnal.gov//store/user/smurthy/condor/unsupervised4b/wkdt/ root://cmseos.fnal.gov//store/user/smurthy/condor/CMSSW_11_1_0_pre5.tgz python3 unsupervised4b/reweight/calculateDtoMWeights.py -s 1 -m 0 -dYr $(dYr)
++DesiredOS="SL7"
+queue dYr from (
+    2016, 
+    2017, 
+    2018
+)
+
+Output = unsup4b.$(dYr).$(ttYr).$(ttProcess).stdout
+Error = unsup4b.$(dYr).$(ttYr).$(ttProcess).stderr
+Log = unsup4b.$(dYr).$(ttYr).$(ttProcess).log
+Arguments = CMSSW_11_1_0_pre5 root://cmseos.fnal.gov//store/user/smurthy/condor/unsupervised4b/wkdt/ root://cmseos.fnal.gov//store/user/smurthy/condor/CMSSW_11_1_0_pre5.tgz python3 unsupervised4b/reweight/calculateDtoMWeights.py -s 0 -m 0 -ttP $(ttProcess) -dYr $(dYr) -ttYr $(ttYr)
++DesiredOS="SL7"
+queue ttProcess, dYr, ttYr from (
+        TTToHadronic, 2018, 2018
+)    
+//     TTTo2L2Nu, 2016, 2016_preVFP
+//     TTTo2L2Nu, 2016, 2016_postVFP
+//     TTTo2L2Nu, 2017, 2017
+//     TTTo2L2Nu, 2018, 2018
+//     TTToHadronic, 2016, 2016_preVFP
+//     TTToHadronic, 2016, 2016_postVFP
+//     TTToHadronic, 2017, 2017
+//     TTToHadronic, 2018, 2018
+//     TTToSemiLeptonic, 2016, 2016_preVFP
+//     TTToSemiLeptonic, 2016, 2016_postVFP
+//     TTToSemiLeptonic, 2017, 2017
+//     TTToSemiLeptonic, 2018, 2018
+// )
+
