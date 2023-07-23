@@ -99,7 +99,7 @@ if args.selfCount == "0":
     ttbar      = ttbarFile.arrays(arrayNamesTTbar)
 else:
     outputfile = (dataFilename.split("/")[-1]).split(".root")[0]+"_wkdt.root"
-    if args.sigIn !=0 :
+    if args.sigIn != '0' :
         outputfile = (dataFilename.split("/")[-1]).split(".root")[0]+"_ZH4b_"+str(args.sigIn)+"percentGauss"+str(args.mean)+"-"+str(args.std)+"_wkdt.root"
 
 print("Branches extracted")
