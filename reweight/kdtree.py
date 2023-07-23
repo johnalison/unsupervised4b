@@ -43,25 +43,41 @@ def Gauss2D(xp, yp, xD, yD, sigma, wD = None):
         return np.sum(gausArr*wD, axis=1)*norm    
     return np.sum(gausArr, axis = 1)*norm
 
+def Gauss2DLoop(xp, yp, xD, yD, sigma, wD = None):
+    norm = 1/(2*np.pi*sigma**2)
+    gausArr = np.exp(-0.5* (((xp - xD.reshape(-1))/sigma)**2  + ((yp - yD.reshape(-1))/sigma)**2  )   )
+    if wD is not None:
+        return np.sum(gausArr*wD)*norm    
+    return np.sum(gausArr)*norm
+
 ## Calculate the KDE for the given data with sigma = 5 GeV
 def getKDE(data, ttbar, ttWeight = None, sigma = 5):
     return Gauss2D(data[:,0], data[:,1], ttbar[:,0], ttbar[:,1], sigma, ttWeight)
 
-def getKDEChunk(data, ttbar, ttWeight = None, sigma = 5, opt=10000):
-    opt = int(np.ceil(10000000/len(ttbar[:,0])))
-    parts = get_no_of_parts(data[:,0], opt)
+def getKDEChunk(data, ttbar, ttWeight = None, sigma = 5, opt=100, loop=True):
+    if loop:
+        return getKDELoop(data, ttbar, ttWeight = ttWeight, sigma = sigma)
+    else:
+        # opt = int(np.ceil(10000000/len(ttbar[:,0])))
+        opt = 1
+        # parts = get_no_of_parts(data[:,0], opt)
+        parts= 1
+        bits = get_ranges(data, parts = parts)
+        kdtW=[]
 
-    bits = get_ranges(data, parts = parts)
+        for bit in bits:
+            kdtW.extend(getKDE(data[bit[0]:bit[1]], ttbar, ttWeight, sigma)[:])
+        return np.array(kdtW).reshape(-1)
+
+def getKDELoop(data, ttbar, ttWeight = None, sigma = 5, opt=100):   
     kdtW=[]
-
-    for bit in bits:
-        kdtW.extend(getKDE(data[bit[0]:bit[1]], ttbar, ttWeight, sigma)[:])
-    return np.array(kdtW).reshape(-1)
-
+    for i in range(int(len(data))):
+        kdtW.append(Gauss2DLoop(data[i][0], data[i][1], ttbar[:,0], ttbar[:,1], sigma, ttWeight))
+    return np.array(kdtW)
 
 ## nSJ = No. of Selected Jets
 ## JMC = jet multiplicity corrections
-def getKDEwJMC(leadData, sublData, leadtt, subltt, ttWeight = None, nSJDat = None, nSJtt = None, sigma = 5):
+def getKDEwJMC(leadData, sublData, leadtt, subltt, ttWeight = None, nSJDat = None, nSJtt = None, sigma = 5, loop= False):
     data = np.array([leadData, sublData]).transpose()
     ttbar = np.array([leadtt, subltt]).transpose()
     del leadData, sublData, leadtt, subltt
@@ -69,17 +85,17 @@ def getKDEwJMC(leadData, sublData, leadtt, subltt, ttWeight = None, nSJDat = Non
     if nSJDat is not None and ttWeight is not None:
         wArr = np.ones(len(data))
         for nSJ in range(4,9):
-            wArr[nSJDat==nSJ] = getKDEChunk(data[nSJDat==nSJ], ttbar[nSJtt==nSJ], ttWeight=ttWeight[nSJtt==nSJ], sigma=sigma)
-        wArr[nSJDat>=9] = getKDEChunk(data[nSJDat>=9], ttbar[nSJtt>=9], ttWeight=ttWeight[nSJtt>=9], sigma=sigma )
+            wArr[nSJDat==nSJ] = getKDEChunk(data[nSJDat==nSJ], ttbar[nSJtt==nSJ], ttWeight=ttWeight[nSJtt==nSJ], sigma=sigma, loop = loop)
+        wArr[nSJDat>=9] = getKDEChunk(data[nSJDat>=9], ttbar[nSJtt>=9], ttWeight=ttWeight[nSJtt>=9], sigma=sigma, loop = loop )
         return wArr
     elif nSJDat is not None:
         wArr = np.ones(len(data))
         for nSJ in range(4,9):
-            wArr[nSJDat==nSJ] = getKDEChunk(data[nSJDat==nSJ], ttbar[nSJtt==nSJ], ttWeight=ttWeight, sigma=sigma )
-        wArr[nSJDat>=9] = getKDEChunk(data[nSJDat>=9], ttbar[nSJtt>=9], ttWeight=ttWeight, sigma=sigma )
+            wArr[nSJDat==nSJ] = getKDEChunk(data[nSJDat==nSJ], ttbar[nSJtt==nSJ], ttWeight=ttWeight, sigma=sigma , loop = loop)
+        wArr[nSJDat>=9] = getKDEChunk(data[nSJDat>=9], ttbar[nSJtt>=9], ttWeight=ttWeight, sigma=sigma , loop = loop)
         return wArr
     else:
-        return getKDEChunk(data, ttbar, ttWeight=ttWeight, sigma=sigma)
+        return getKDEChunk(data, ttbar, ttWeight=ttWeight, sigma=sigma, loop = loop)
 
 # get N nearest neighbours of data events and get distance of farthest event
 def getNNBall(leadData, sublData, leadtt, subltt, NN = 25, ttWeight = None):
