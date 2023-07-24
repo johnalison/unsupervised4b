@@ -1,0 +1,39 @@
+universe = vanilla
+use_x509userproxy = true
+Executable = condor.sh
+notify_user = sindhum@andrew.cmu.edu
+notification = always
+request_memory = 6300
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+Output = stdout/unsup4b.$(dYr).$(ttYr).$(ttProcess).$(mi).stdout
+Error = stderr/unsup4b.$(dYr).$(ttYr).$(ttProcess).$(mi).stderr
+Log = log/unsup4b.$(dYr).$(ttYr).$(ttProcess).$(mi).log
+Arguments = CMSSW_11_1_0_pre5 root://cmseos.fnal.gov//store/user/smurthy/condor/unsupervised4b/randPair/wKDEwJMC/ root://cmseos.fnal.gov//store/user/smurthy/condor/CMSSW_11_1_0_pre5.tgz python3 unsupervised4b/reweight/calculateDtoMWeights.py -m $(mi) -ttP $(ttProcess) -dYr $(dYr) -ttYr $(ttYr) -sig 0
++DesiredOS="SL7"
+queue ttProcess, dYr, ttYr, mi from (
+    TTTo2L2Nu, 2016, 2016_preVFP, m
+    TTTo2L2Nu, 2016, 2016_postVFP, m
+    TTTo2L2Nu, 2017, 2017, m
+    TTTo2L2Nu, 2018, 2018, m
+    TTToHadronic, 2016, 2016_preVFP, m
+    TTToHadronic, 2016, 2016_postVFP, m
+    TTToHadronic, 2017, 2017, m
+    TTToHadronic, 2018, 2018, m
+    TTToSemiLeptonic, 2016, 2016_preVFP, m
+    TTToSemiLeptonic, 2016, 2016_postVFP, m
+    TTToSemiLeptonic, 2017, 2017, m
+    TTToSemiLeptonic, 2018, 2018, m
+    TTTo2L2Nu, 2016, 2016_preVFP, d
+    TTTo2L2Nu, 2016, 2016_postVFP, d
+    TTTo2L2Nu, 2017, 2017, d
+    TTTo2L2Nu, 2018, 2018, d
+    TTToHadronic, 2016, 2016_preVFP, d
+    TTToHadronic, 2016, 2016_postVFP, d
+    TTToHadronic, 2017, 2017, d
+    TTToHadronic, 2018, 2018, d
+    TTToSemiLeptonic, 2016, 2016_preVFP, d
+    TTToSemiLeptonic, 2016, 2016_postVFP, d
+    TTToSemiLeptonic, 2017, 2017, d
+    TTToSemiLeptonic, 2018, 2018, d
+)

@@ -1,0 +1,18 @@
+universe = vanilla
+use_x509userproxy = true
+Executable = condor.sh
+notify_user = sindhum@andrew.cmu.edu
+notification = always
+request_memory = 6300
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+Output = stdout/unsup3to4b.$(dYr).stdout
+Error = stderr/unsup3to4b.$(dYr).stderr
+Log = log/unsup3to4b.$(dYr).log
+Arguments = CMSSW_11_1_0_pre5 root://cmseos.fnal.gov//store/user/smurthy/condor/unsupervised4b/randPair/w3to4/ root://cmseos.fnal.gov//store/user/smurthy/condor/CMSSW_11_1_0_pre5.tgz python3 unsupervised4b/reweight/calculate3to4Weights.py -y $(dYr) -p root://cmseos.fnal.gov//store/user/smurthy/condor/unsupervised4b/randPair/wDtoM/ 
++DesiredOS="SL7"
+queue dYr from (
+    2016
+    2017
+    2018
+)
