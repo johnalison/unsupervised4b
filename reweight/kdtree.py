@@ -44,30 +44,20 @@ def Gauss2D(xp, yp, xD, yD, sigma, wD = None):
     return np.sum(gausArr, axis = 1)*norm
 
 def Gauss2DLoop(xp, yp, xD, yD, sigma, wD = None):
-    norm = 1/(2*np.pi*sigma**2)
-    gausArr = np.exp(-0.5* (((xp - xD.reshape(-1))/sigma)**2  + ((yp - yD.reshape(-1))/sigma)**2  )   )
+    gausArr = np.exp(-0.5* (((xp - xD)/sigma)**2  + ((yp - yD)/sigma)**2  )   )
     if wD is not None:
-        return np.sum(gausArr*wD)*norm    
-    return np.sum(gausArr)*norm
+        return np.sum(gausArr*wD)/(2*np.pi*sigma**2)
+    return np.sum(gausArr)/(2*np.pi*sigma**2)
+
+def Gauss2DLoopNow(datP, datD, sigma, wD = None):
+    # gausArr = np.exp(-0.5* (( np.sum(datP - datD, axis = 1) /sigma)**2 ) ) ##### WRONGGGG
+    if wD is not None:
+        return np.sum( np.exp(-0.5*   np.sum(  (( datP - datD) /sigma)**2 , axis = 1) )  *wD)/(2*np.pi*sigma**2)
+    return np.sum(   np.exp(-0.5*   np.sum(  (( datP - datD) /sigma)**2 , axis = 1) ) )/(2*np.pi*sigma**2)
 
 ## Calculate the KDE for the given data with sigma = 5 GeV
 def getKDE(data, ttbar, ttWeight = None, sigma = 5):
     return Gauss2D(data[:,0], data[:,1], ttbar[:,0], ttbar[:,1], sigma, ttWeight)
-
-def getKDEChunk(data, ttbar, ttWeight = None, sigma = 5, opt=100, loop=True):
-    if loop:
-        return getKDELoop(data, ttbar, ttWeight = ttWeight, sigma = sigma)
-    else:
-        # opt = int(np.ceil(10000000/len(ttbar[:,0])))
-        opt = 1
-        # parts = get_no_of_parts(data[:,0], opt)
-        parts= 1
-        bits = get_ranges(data, parts = parts)
-        kdtW=[]
-
-        for bit in bits:
-            kdtW.extend(getKDE(data[bit[0]:bit[1]], ttbar, ttWeight, sigma)[:])
-        return np.array(kdtW).reshape(-1)
 
 def getKDELoop(data, ttbar, ttWeight = None, sigma = 5, opt=100):   
     kdtW=[]
@@ -75,9 +65,36 @@ def getKDELoop(data, ttbar, ttWeight = None, sigma = 5, opt=100):
         kdtW.append(Gauss2DLoop(data[i][0], data[i][1], ttbar[:,0], ttbar[:,1], sigma, ttWeight))
     return np.array(kdtW)
 
+# def getKDELoopBlah(data, ttbar, ttWeight = None, sigma = 5, opt=100):   
+#     kdtW=[]
+#     # print(ttbar[:,0])
+#     for i in range(int(len(data))):
+#         kdtW.append(Gauss2DLoopNow(data[i], ttbar, sigma))
+#     return np.array(kdtW)
+
+def getKDEChunk(data, ttbar, ttWeight = None, sigma = 5, opt=100, loop=True):
+    if loop:
+        kdtW=[]
+        # print(ttbar[:,0])
+        for i in range(int(len(data))):
+            kdtW.append(Gauss2DLoopNow(data[i], ttbar, sigma, ttWeight))
+        return np.array(kdtW)
+        # return getKDELoop(data, ttbar, ttWeight = ttWeight, sigma = sigma)
+    else:
+        # opt = int(np.ceil(10000000/len(ttbar[:,0])))
+        opt = 1
+        # parts = get_no_of_parts(data[:,0], opt)
+        parts= 100
+        bits = get_ranges(data, parts = parts)
+        kdtW=[]
+
+        for bit in bits:
+            kdtW.extend(getKDE(data[bit[0]:bit[1]], ttbar, ttWeight, sigma)[:])
+        return np.array(kdtW).reshape(-1)
+
 ## nSJ = No. of Selected Jets
 ## JMC = jet multiplicity corrections
-def getKDEwJMC(leadData, sublData, leadtt, subltt, ttWeight = None, nSJDat = None, nSJtt = None, sigma = 5, loop= False):
+def getKDEwJMC(leadData, sublData, leadtt, subltt, ttWeight = None, nSJDat = None, nSJtt = None, sigma = 5, loop=True):
     data = np.array([leadData, sublData]).transpose()
     ttbar = np.array([leadtt, subltt]).transpose()
     del leadData, sublData, leadtt, subltt
