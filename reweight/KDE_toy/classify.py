@@ -194,7 +194,7 @@ def get_LRT_stat(pd_pb, count3b, count4b, norm ):
     return np.log(count3b/count4b) + (1/norm)*np.sum(np.log(pd_pb))
 
 def get_LRT_stat_binned(pd_pb_cont, pd_pb_bounds, count3b, count4b, norm ):
-    pd_pb_center = 0.5*pd_pb_bounds[0:-1]+pd_pb_bounds[1:]
+    pd_pb_center = 0.5*(pd_pb_bounds[0:-1]+pd_pb_bounds[1:])
     return np.log(count3b/count4b) + (1/norm)*np.sum(pd_pb_cont*np.log(pd_pb_center))
 
 def normal(x, mu = 0, std = 1):
