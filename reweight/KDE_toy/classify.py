@@ -190,8 +190,9 @@ ptrain.close()
 
 exit()
 
-def get_LRT_stat(pd_pb, count3b, count4b, norm ):
-    return np.log(count3b/count4b) + (1/norm)*np.sum(np.log(pd_pb))
+def get_LRT_stat(pd_pb, count3b, count4b, weight ):
+    norm = np.sum(weight)
+    return np.log(count3b/count4b) + (1/norm)*np.sum(weight*np.log(pd_pb))
 
 def get_LRT_stat_binned(pd_pb_cont, pd_pb_bounds, count3b, count4b, norm ):
     pd_pb_center = 0.5*(pd_pb_bounds[0:-1]+pd_pb_bounds[1:])
@@ -205,19 +206,17 @@ pprob = PdfPages(f'stats_sig_binned_nBins_{nBins}.pdf')
 for binInd in range(10):
     b_pb_train, d_pb_train, wp0, wp1, b_pb_test, d_pb_test, wb_pb_test, wd_pb_test = classify(binInd, do_train = False)
 
-    lo = np.min([np.min(b_pb_test), np.min(d_pb_test)])
-    hi = np.max([np.max(b_pb_test), np.max(d_pb_test)])
+    # lo = np.min([np.min(b_pb_test), np.min(d_pb_test)])
+    # hi = np.max([np.max(b_pb_test), np.max(d_pb_test)])
+    # a = np.histogram(b_pb_test, range = (lo, hi), bins = 50, weights = wb_pb_test)
+    # b = np.histogram(d_pb_test, range = (lo, hi), bins = 50, weights = wd_pb_test);
+    # stat_dat = get_LRT_stat_binned(a[0], a[1], count3b = np.sum(wb_pb_test), count4b = np.sum(wd_pb_test), norm = np.sum(wd_pb_test))
+    # stat_bkg = get_LRT_stat_binned(b[0], b[1], count3b = np.sum(wb_pb_test), count4b = np.sum(wd_pb_test), norm = np.sum(wb_pb_test))
+    
+    stat_dat = get_LRT_stat(pd_pb=d_pb_test, count3b = np.sum(wb_pb_test), count4b = np.sum(wd_pb_test), weight = wd_pb_test)
+    stat_bkg = get_LRT_stat(pd_pb=b_pb_test, count3b = np.sum(wb_pb_test), count4b = np.sum(wd_pb_test), weight = wb_pb_test)
 
 
-    a = np.histogram(b_pb_test, range = (lo, hi), bins = 50, weights = wb_pb_test)
-    b = np.histogram(d_pb_test, range = (lo, hi), bins = 50, weights = wd_pb_test);
-
-
-    # stat_dat = get_LRT_stat(pd_pb=d_pb_test, count3b = np.sum(wb_pb_test), count4b = np.sum(wd_pb_test), norm = np.sum(wd_pb_test))
-    # stat_bkg = get_LRT_stat(pd_pb=b_pb_test, count3b = np.sum(wb_pb_test), count4b = np.sum(wd_pb_test), norm = np.sum(wb_pb_test))
-
-    stat_dat = get_LRT_stat_binned(a[0], a[1], count3b = np.sum(wb_pb_test), count4b = np.sum(wd_pb_test), norm = np.sum(wd_pb_test))
-    stat_bkg = get_LRT_stat_binned(b[0], b[1], count3b = np.sum(wb_pb_test), count4b = np.sum(wd_pb_test), norm = np.sum(wb_pb_test))
     figf = plt.figure(figsize = (8,5))
     x = np.linspace(-5,5, 50)
     plt.plot(x, normal(x))
